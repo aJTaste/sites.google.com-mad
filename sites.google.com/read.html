@@ -21,30 +21,19 @@
       --warn:#f59e0b;
     }
     body{
-      background:var(--bg);
-      color:var(--text);
+      background:var(--bg);color:var(--text);
       font-family:'Noto Sans JP',sans-serif;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      padding:24px 16px 48px;
+      min-height:100vh;display:flex;flex-direction:column;
+      align-items:center;padding:24px 16px 48px;
     }
     header{
-      width:100%;
-      max-width:560px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+      width:100%;max-width:560px;
+      display:flex;align-items:center;justify-content:space-between;
       margin-bottom:32px;
     }
-    .logo{
-      display:flex;align-items:center;gap:10px;
-      font-weight:700;font-size:18px;
-    }
+    .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
     .logo-icon{
-      width:36px;height:36px;
-      background:var(--accent);border-radius:10px;
+      width:36px;height:36px;background:var(--accent);border-radius:10px;
       display:flex;align-items:center;justify-content:center;font-size:18px;
     }
     .nav-link{
@@ -96,12 +85,67 @@
     }
     .err.show{display:block}
 
+    /* ===== 専用貼り付けエリア ===== */
+    .paste-area{
+      position:relative;
+      border:2px dashed var(--border);
+      border-radius:12px;
+      padding:24px 16px;
+      text-align:center;
+      cursor:pointer;
+      transition:.2s;
+      margin-bottom:18px;
+      background:#0d0f14;
+      overflow:hidden;
+    }
+    .paste-area:hover,.paste-area:focus-within{
+      border-color:var(--accent);
+      background:rgba(99,102,241,.05);
+    }
+    .paste-area.has-value{
+      border-style:solid;
+      border-color:var(--success);
+      background:rgba(34,197,94,.05);
+    }
+    .paste-icon{font-size:28px;margin-bottom:8px;line-height:1}
+    .paste-label{font-size:14px;font-weight:700;margin-bottom:4px}
+    .paste-sub{font-size:12px;color:var(--sub)}
+    /* 透明inputを重ねてペーストを受け取る */
+    .paste-area input[type="text"]{
+      position:absolute;inset:0;
+      opacity:0;cursor:pointer;
+      width:100%;height:100%;
+      border:none;background:none;
+      padding:0;
+    }
+    .pasted-id{
+      display:none;
+      align-items:center;justify-content:space-between;
+      gap:8px;
+      background:rgba(34,197,94,.08);
+      border:1px solid rgba(34,197,94,.3);
+      border-radius:10px;
+      padding:10px 14px;
+      margin-bottom:18px;
+    }
+    .pasted-id.show{display:flex}
+    .pasted-id-text{
+      font-size:12px;color:var(--success);
+      word-break:break-all;flex:1;
+      font-family:monospace;
+    }
+    .clear-id{
+      background:none;border:none;color:var(--sub);
+      cursor:pointer;font-size:16px;flex-shrink:0;
+      padding:2px 6px;border-radius:4px;transition:.2s;
+    }
+    .clear-id:hover{color:var(--danger)}
+
     /* 結果 */
     .result-card{
       width:100%;max-width:560px;
       background:var(--surface);border:1px solid var(--border);
-      border-radius:16px;padding:28px 24px;margin-top:16px;
-      display:none;
+      border-radius:16px;padding:28px 24px;margin-top:16px;display:none;
     }
     .result-card.show{display:block}
     .result-header{
@@ -115,14 +159,8 @@
       border:1px solid rgba(245,158,11,.3);white-space:nowrap;flex-shrink:0;
     }
     .divider{height:1px;background:var(--border);margin:16px 0}
-    .result-body{
-      font-size:15px;line-height:1.9;color:var(--text);
-      white-space:pre-wrap;word-break:break-word;
-    }
-    .result-meta{
-      font-size:12px;color:var(--sub);margin-top:20px;
-      display:flex;gap:12px;flex-wrap:wrap;
-    }
+    .result-body{font-size:15px;line-height:1.9;white-space:pre-wrap;word-break:break-word}
+    .result-meta{font-size:12px;color:var(--sub);margin-top:20px;display:flex;gap:12px;flex-wrap:wrap}
     .warn-banner{
       background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);
       border-radius:10px;padding:10px 14px;font-size:12px;color:var(--danger);
@@ -134,12 +172,7 @@
       color:var(--sub);font-family:inherit;font-size:13px;cursor:pointer;transition:.2s;
     }
     .btn-outline-sm:hover{border-color:var(--accent);color:var(--accent)}
-
-    /* ローディング */
-    .loading{
-      display:none;width:100%;max-width:560px;
-      text-align:center;padding:48px;
-    }
+    .loading{display:none;width:100%;max-width:560px;text-align:center;padding:48px}
     .loading.show{display:block}
     .spinner{
       width:36px;height:36px;border:3px solid var(--border);
@@ -158,13 +191,23 @@
     <a href="write.html" class="nav-link">✏️ 書く</a>
   </header>
 
-  <!-- ID入力フォーム -->
   <div class="card" id="form-card">
     <div class="card-title">手紙を読む</div>
 
-    <div class="field">
-      <label>手紙のID</label>
-      <input type="text" id="letter-id" placeholder="URLから自動入力されます">
+    <!-- ★専用IDエリア -->
+    <label style="font-size:13px;color:var(--sub);display:block;margin-bottom:7px">
+      手紙のID <span style="color:var(--danger)">*</span>
+    </label>
+    <div class="paste-area" id="paste-area">
+      <div class="paste-icon" id="paste-icon">📋</div>
+      <div class="paste-label" id="paste-label">ここにIDを貼り付け</div>
+      <div class="paste-sub" id="paste-sub">送り主からもらったIDをCtrl+VかLong Tapで貼り付け</div>
+      <input type="text" id="letter-id" placeholder="">
+    </div>
+    <!-- 貼り付け後のプレビュー -->
+    <div class="pasted-id" id="pasted-preview">
+      <span class="pasted-id-text" id="pasted-id-text"></span>
+      <button class="clear-id" id="clear-id" type="button">✕</button>
     </div>
 
     <div class="field">
@@ -179,13 +222,11 @@
     <div class="err" id="err-msg"></div>
   </div>
 
-  <!-- ローディング -->
   <div class="loading" id="loading">
     <div class="spinner"></div>
     <div style="color:var(--sub);font-size:14px">復号中...</div>
   </div>
 
-  <!-- 結果 -->
   <div class="result-card" id="result-card">
     <div class="result-header">
       <div class="result-title" id="r-title"></div>
@@ -207,7 +248,6 @@
     const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1nempsZXBsanN3eXR0amtsanNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzkzNDcsImV4cCI6MjA4NzkxNTM0N30.l_Sj0ZHUJBBq4DyCdgU6cbMkePZdB6Rb3XM83PGc_3Y';
     const sb=createClient(SUPABASE_URL,SUPABASE_KEY);
 
-    // ========== 暗号化ユーティリティ ==========
     const enc=new TextEncoder();
     const dec=new TextDecoder();
     const unb64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
@@ -225,17 +265,53 @@
     async function decrypt(encB64,ivB64,saltB64,pw){
       const key=await deriveKey(pw,unb64(saltB64));
       const plain=await crypto.subtle.decrypt(
-        {name:'AES-GCM',iv:unb64(ivB64)},
-        key,unb64(encB64)
+        {name:'AES-GCM',iv:unb64(ivB64)},key,unb64(encB64)
       );
       return dec.decode(plain);
     }
 
-    // ========== URLからIDを取得 ==========
+    // ===== 貼り付けエリアの制御 =====
+    const idInput=document.getElementById('letter-id');
+    const pasteArea=document.getElementById('paste-area');
+    const pasteIcon=document.getElementById('paste-icon');
+    const pasteLabel=document.getElementById('paste-label');
+    const pasteSub=document.getElementById('paste-sub');
+    const pastedPreview=document.getElementById('pasted-preview');
+    const pastedIdText=document.getElementById('pasted-id-text');
+
+    function updatePasteUI(val){
+      if(val){
+        pasteArea.classList.add('has-value');
+        pasteIcon.textContent='✅';
+        pasteLabel.textContent='IDを貼り付けました';
+        pasteSub.textContent='';
+        pastedIdText.textContent=val;
+        pastedPreview.classList.add('show');
+      }else{
+        pasteArea.classList.remove('has-value');
+        pasteIcon.textContent='📋';
+        pasteLabel.textContent='ここにIDを貼り付け';
+        pasteSub.textContent='送り主からもらったIDをCtrl+VかLong Tapで貼り付け';
+        pastedPreview.classList.remove('show');
+      }
+    }
+
+    idInput.addEventListener('input',()=>{
+      updatePasteUI(idInput.value.trim());
+    });
+
+    // クリアボタン
+    document.getElementById('clear-id').addEventListener('click',()=>{
+      idInput.value='';
+      updatePasteUI('');
+    });
+
+    // URLからID自動入力
     const params=new URLSearchParams(location.search);
     const idFromUrl=params.get('id');
     if(idFromUrl){
-      document.getElementById('letter-id').value=idFromUrl;
+      idInput.value=idFromUrl;
+      updatePasteUI(idFromUrl);
     }
 
     // 目のボタン
@@ -244,20 +320,18 @@
       i.type=i.type==='password'?'text':'password';
     });
 
-    // Enterキー対応
     document.getElementById('pw').addEventListener('keydown',e=>{
       if(e.key==='Enter')document.getElementById('unlock-btn').click();
     });
 
-    // ========== 復号 ==========
+    // ===== 復号 =====
     document.getElementById('unlock-btn').addEventListener('click',async()=>{
-      const id=document.getElementById('letter-id').value.trim();
+      const id=idInput.value.trim();
       const pw=document.getElementById('pw').value;
       const errEl=document.getElementById('err-msg');
-
       errEl.classList.remove('show');
 
-      if(!id){showErr('手紙のIDを入力してね');return}
+      if(!id){showErr('IDを貼り付けてね');return}
       if(!pw){showErr('パスワードを入力してね');return}
 
       document.getElementById('form-card').style.display='none';
@@ -277,15 +351,13 @@
           return;
         }
 
-        // 有効期限チェック
         if(data.expires_at&&new Date(data.expires_at)<new Date()){
           document.getElementById('form-card').style.display='block';
           document.getElementById('loading').classList.remove('show');
-          showErr('この手紙は期限切れだよ（削除済み）');
+          showErr('この手紙は期限切れだよ');
           return;
         }
 
-        // 復号
         let title,body;
         try{
           [title,body]=await Promise.all([
@@ -331,7 +403,6 @@
 
       const sent=new Date(data.created_at).toLocaleString('ja-JP');
       document.getElementById('r-meta').textContent=`送信日時: ${sent}`;
-
       document.getElementById('result-card').classList.add('show');
     }
 
@@ -339,6 +410,8 @@
       document.getElementById('result-card').classList.remove('show');
       document.getElementById('pw').value='';
       document.getElementById('err-msg').classList.remove('show');
+      idInput.value='';
+      updatePasteUI('');
       document.getElementById('form-card').style.display='block';
     });
   </script>
