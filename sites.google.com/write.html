@@ -9,127 +9,222 @@
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --bg:#0d0f14;--surface:#161a22;--border:#2a2f3d;
-      --accent:#6366f1;--accent-dim:#4f52c4;
-      --text:#e8eaf0;--sub:#8b93a8;--danger:#ef4444;--success:#22c55e;
+      --bg:#0d0f14;
+      --surface:#161a22;
+      --border:#2a2f3d;
+      --accent:#6366f1;
+      --accent-dim:#4f52c4;
+      --text:#e8eaf0;
+      --sub:#8b93a8;
+      --danger:#ef4444;
+      --success:#22c55e;
     }
     body{
-      background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;
-      min-height:100vh;display:flex;flex-direction:column;align-items:center;
+      background:var(--bg);
+      color:var(--text);
+      font-family:'Noto Sans JP',sans-serif;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
       padding:24px 16px 48px;
     }
     header{
-      width:100%;max-width:560px;display:flex;align-items:center;
-      justify-content:space-between;margin-bottom:32px;
+      width:100%;
+      max-width:560px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:32px;
     }
-    .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      font-size:18px;
+      letter-spacing:.5px;
+    }
     .logo-icon{
-      width:36px;height:36px;background:var(--accent);border-radius:10px;
-      display:flex;align-items:center;justify-content:center;font-size:18px;
+      width:36px;height:36px;
+      background:var(--accent);
+      border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:18px;
     }
     .nav-link{
-      color:var(--sub);text-decoration:none;font-size:13px;
-      border:1px solid var(--border);padding:6px 14px;border-radius:8px;transition:.2s;
+      color:var(--sub);
+      text-decoration:none;
+      font-size:13px;
+      border:1px solid var(--border);
+      padding:6px 14px;
+      border-radius:8px;
+      transition:.2s;
     }
     .nav-link:hover{color:var(--text);border-color:var(--accent)}
     .card{
-      width:100%;max-width:560px;background:var(--surface);
-      border:1px solid var(--border);border-radius:16px;padding:28px 24px;
+      width:100%;
+      max-width:560px;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:28px 24px;
     }
     .card-title{
-      font-size:14px;color:var(--sub);text-transform:uppercase;letter-spacing:1px;
-      margin-bottom:20px;display:flex;align-items:center;gap:8px;
+      font-size:14px;
+      color:var(--sub);
+      text-transform:uppercase;
+      letter-spacing:1px;
+      margin-bottom:20px;
+      display:flex;align-items:center;gap:8px;
     }
     .card-title::before{
-      content:'';display:block;width:4px;height:14px;background:var(--accent);border-radius:2px;
+      content:'';
+      display:block;width:4px;height:14px;
+      background:var(--accent);border-radius:2px;
     }
     .field{margin-bottom:18px}
-    label{display:block;font-size:13px;color:var(--sub);margin-bottom:7px}
-    input,textarea,select{
-      width:100%;background:#0d0f14;border:1px solid var(--border);
-      border-radius:10px;color:var(--text);font-family:inherit;
-      font-size:14px;padding:11px 14px;outline:none;transition:.2s;
+    label{
+      display:block;
+      font-size:13px;
+      color:var(--sub);
+      margin-bottom:7px;
     }
-    input:focus,textarea:focus,select:focus{border-color:var(--accent)}
-    textarea{min-height:160px;line-height:1.7;resize:none}
-    select{cursor:pointer}
+    input,textarea{
+      width:100%;
+      background:#0d0f14;
+      border:1px solid var(--border);
+      border-radius:10px;
+      color:var(--text);
+      font-family:inherit;
+      font-size:14px;
+      padding:11px 14px;
+      outline:none;
+      transition:.2s;
+      resize:none;
+    }
+    input:focus,textarea:focus{border-color:var(--accent)}
+    textarea{min-height:160px;line-height:1.7}
     .pw-wrap{position:relative}
-    .pw-wrap input,.slug-wrap input{padding-right:44px}
-    .eye-btn,.slug-status-icon{
+    .pw-wrap input{padding-right:44px}
+    .eye-btn{
       position:absolute;right:12px;top:50%;transform:translateY(-50%);
       background:none;border:none;cursor:pointer;color:var(--sub);
       font-size:18px;line-height:1;padding:4px;
+      transition:.2s;
     }
-    .eye-btn{transition:.2s}.eye-btn:hover{color:var(--text)}
-    .slug-status-icon{pointer-events:none}
-    .pw-strength{height:3px;border-radius:2px;margin-top:8px;background:var(--border);overflow:hidden}
-    .pw-strength-bar{height:100%;width:0%;border-radius:2px;transition:width .3s,background .3s}
-    .hint{font-size:12px;margin-top:5px;min-height:16px;color:var(--sub)}
+    .eye-btn:hover{color:var(--text)}
+    .pw-strength{
+      height:3px;
+      border-radius:2px;
+      margin-top:8px;
+      background:var(--border);
+      overflow:hidden;
+    }
+    .pw-strength-bar{
+      height:100%;width:0%;
+      border-radius:2px;
+      transition:width .3s,background .3s;
+    }
+    .pw-hint{font-size:12px;color:var(--sub);margin-top:5px}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    .slug-wrap{position:relative}
-    .slug-wrap input{font-family:monospace;letter-spacing:.5px}
+    select{
+      width:100%;
+      background:#0d0f14;
+      border:1px solid var(--border);
+      border-radius:10px;
+      color:var(--text);
+      font-family:inherit;
+      font-size:14px;
+      padding:11px 14px;
+      outline:none;
+      cursor:pointer;
+    }
+    select:focus{border-color:var(--accent)}
     .btn{
-      width:100%;padding:13px;background:var(--accent);border:none;
-      border-radius:10px;color:#fff;font-family:inherit;font-size:15px;
-      font-weight:700;cursor:pointer;transition:.2s;margin-top:4px;
+      width:100%;
+      padding:13px;
+      background:var(--accent);
+      border:none;
+      border-radius:10px;
+      color:#fff;
+      font-family:inherit;
+      font-size:15px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s;
+      margin-top:4px;
     }
     .btn:hover{background:var(--accent-dim)}
     .btn:disabled{opacity:.5;cursor:not-allowed}
 
-    /* モーダル */
+    /* 完了モーダル */
     .overlay{
-      display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);
-      z-index:100;align-items:center;justify-content:center;
+      display:none;
+      position:fixed;inset:0;
+      background:rgba(0,0,0,.7);
+      z-index:100;
+      align-items:center;justify-content:center;
     }
     .overlay.show{display:flex}
     .modal{
-      background:var(--surface);border:1px solid var(--border);
-      border-radius:20px;padding:28px 24px;width:min(460px,92vw);
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:32px 28px;
+      width:min(480px,92vw);
+      text-align:center;
     }
-    .modal-top{text-align:center;margin-bottom:20px}
-    .modal-top .icon{font-size:38px}
-    .modal-top h2{font-size:18px;font-weight:700;margin:6px 0 4px}
-    .modal-top p{font-size:13px;color:var(--sub);line-height:1.6}
-    .share-block{
-      background:#0d0f14;border:1px solid var(--border);
-      border-radius:12px;overflow:hidden;margin-bottom:12px;
+    .modal-icon{font-size:48px;margin-bottom:12px}
+    .modal h2{font-size:20px;margin-bottom:8px}
+    .modal p{font-size:13px;color:var(--sub);margin-bottom:20px;line-height:1.6}
+    .url-box{
+      background:#0d0f14;
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:12px 14px;
+      font-size:12px;
+      word-break:break-all;
+      color:var(--accent);
+      margin-bottom:16px;
+      text-align:left;
+      line-height:1.5;
     }
-    .share-row{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:14px 16px;gap:12px;
-    }
-    .share-row+.share-row{border-top:1px solid var(--border)}
-    .share-left .share-label{font-size:11px;color:var(--sub);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
-    .share-left .share-val{font-size:22px;font-weight:700;font-family:monospace;letter-spacing:2px}
-    .val-id{color:var(--accent)}
-    .val-pw{color:var(--success)}
-    .copy-mini{
-      background:none;border:1px solid var(--border);border-radius:6px;
-      color:var(--sub);font-size:11px;padding:5px 10px;cursor:pointer;
-      font-family:inherit;transition:.2s;flex-shrink:0;
-    }
-    .copy-mini:hover{border-color:var(--accent);color:var(--accent)}
-    .url-block{
-      display:flex;align-items:center;gap:8px;
-      background:#0d0f14;border:1px solid var(--border);
-      border-radius:10px;padding:10px 12px;margin-bottom:8px;
-    }
-    .url-text{font-size:11px;color:var(--sub);word-break:break-all;flex:1;line-height:1.5}
-    .copied-msg{font-size:12px;color:var(--success);min-height:18px;text-align:center;margin-bottom:8px}
     .modal-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .btn-outline{
-      padding:11px;background:none;border:1px solid var(--border);
-      border-radius:10px;color:var(--text);font-family:inherit;
-      font-size:14px;cursor:pointer;transition:.2s;
+      padding:11px;
+      background:none;
+      border:1px solid var(--border);
+      border-radius:10px;
+      color:var(--text);
+      font-family:inherit;
+      font-size:14px;
+      cursor:pointer;
+      transition:.2s;
     }
     .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
-    .btn-primary{
-      padding:11px;background:var(--accent);border:none;
-      border-radius:10px;color:#fff;font-family:inherit;
-      font-size:14px;font-weight:700;cursor:pointer;transition:.2s;
+    .btn-copy{
+      padding:11px;
+      background:var(--accent);
+      border:none;
+      border-radius:10px;
+      color:#fff;
+      font-family:inherit;
+      font-size:14px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s;
     }
-    .btn-primary:hover{background:var(--accent-dim)}
-    @media(max-width:480px){.row{grid-template-columns:1fr}}
+    .btn-copy:hover{background:var(--accent-dim)}
+    .copied-msg{
+      font-size:12px;
+      color:var(--success);
+      height:16px;
+      margin-top:6px;
+    }
+    @media(max-width:480px){
+      .row{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
@@ -148,6 +243,7 @@
       <label>件名（省略可）</label>
       <input type="text" id="title" placeholder="件名なし">
     </div>
+
     <div class="field">
       <label>本文 <span style="color:var(--danger)">*</span></label>
       <textarea id="body" placeholder="ここに秘密のメッセージを書いてね..."></textarea>
@@ -161,38 +257,28 @@
           <button class="eye-btn" id="eye1" type="button">👁</button>
         </div>
         <div class="pw-strength"><div class="pw-strength-bar" id="pw-bar"></div></div>
-        <div class="hint" id="pw-hint"></div>
+        <div class="pw-hint" id="pw-hint"></div>
       </div>
+
       <div class="field">
         <label>パスワード確認 <span style="color:var(--danger)">*</span></label>
         <div class="pw-wrap">
           <input type="password" id="pw2" placeholder="もう一度入力" autocomplete="new-password">
           <button class="eye-btn" id="eye2" type="button">👁</button>
         </div>
-        <div class="hint" id="pw2-hint"></div>
+        <div class="pw-hint" id="pw2-hint"></div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="field">
-        <label>🔖 手紙のID（自分で決めると口頭で伝えられる）</label>
-        <div class="slug-wrap">
-          <input type="text" id="slug" placeholder="例: natsu2025" maxlength="32"
-            autocomplete="off" spellcheck="false">
-          <span class="slug-status-icon" id="slug-icon"></span>
-        </div>
-        <div class="hint" id="slug-hint">英数字・_・- のみ。空欄なら自動生成</div>
-      </div>
-      <div class="field">
-        <label>有効期限</label>
-        <select id="expire">
-          <option value="1">1時間</option>
-          <option value="24" selected>24時間</option>
-          <option value="72">3日</option>
-          <option value="168">7日</option>
-          <option value="0">無期限</option>
-        </select>
-      </div>
+    <div class="field">
+      <label>有効期限</label>
+      <select id="expire">
+        <option value="1">1時間</option>
+        <option value="24" selected>24時間</option>
+        <option value="72">3日</option>
+        <option value="168">7日</option>
+        <option value="0">無期限</option>
+      </select>
     </div>
 
     <button class="btn" id="send-btn" disabled>🔒 暗号化して送信</button>
@@ -201,215 +287,176 @@
   <!-- 完了モーダル -->
   <div class="overlay" id="overlay">
     <div class="modal">
-      <div class="modal-top">
-        <div class="icon">🔐</div>
-        <h2>送信完了！</h2>
-        <p>このIDとパスワードを相手に伝えてね</p>
-      </div>
-
-      <div class="share-block">
-        <div class="share-row">
-          <div class="share-left">
-            <div class="share-label">手紙のID</div>
-            <div class="share-val val-id" id="r-slug"></div>
-          </div>
-          <button class="copy-mini" id="copy-slug-btn">コピー</button>
-        </div>
-        <div class="share-row">
-          <div class="share-left">
-            <div class="share-label">パスワード</div>
-            <div class="share-val val-pw" id="r-pw"></div>
-          </div>
-          <button class="copy-mini" id="copy-pw-btn">コピー</button>
-        </div>
-      </div>
-
-      <div class="url-block">
-        <div class="url-text" id="result-url"></div>
-        <button class="copy-mini" id="copy-url-btn">URL</button>
-      </div>
-
+      <div class="modal-icon">🔐</div>
+      <h2>送信完了！</h2>
+      <p>このURLとパスワードを相手に教えてね。<br>URLだけでは読めないよ。</p>
+      <div class="url-box" id="result-url"></div>
       <div class="copied-msg" id="copied-msg"></div>
-
       <div class="modal-btns">
         <button class="btn-outline" id="new-btn">新しく書く</button>
-        <button class="btn-primary" id="copy-all-btn">📋 全部コピー</button>
+        <button class="btn-copy" id="copy-btn">URLをコピー</button>
       </div>
     </div>
   </div>
 
   <script type="module">
     import{createClient}from'https://esm.sh/@supabase/supabase-js@2';
+
     const SUPABASE_URL='https://mgzjlepljswyttjkljsh.supabase.co';
     const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1nempsZXBsanN3eXR0amtsanNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzkzNDcsImV4cCI6MjA4NzkxNTM0N30.l_Sj0ZHUJBBq4DyCdgU6cbMkePZdB6Rb3XM83PGc_3Y';
     const sb=createClient(SUPABASE_URL,SUPABASE_KEY);
 
-    // 暗号化
-    const te=new TextEncoder();
-    const b64=buf=>btoa(String.fromCharCode(...new Uint8Array(buf)));
+    // ========== 暗号化ユーティリティ ==========
+    const enc=new TextEncoder();
+    const dec=new TextDecoder();
+
+    function b64(buf){return btoa(String.fromCharCode(...new Uint8Array(buf)))}
+    function unb64(s){return Uint8Array.from(atob(s),c=>c.charCodeAt(0))}
+
     async function deriveKey(pw,salt){
-      const km=await crypto.subtle.importKey('raw',te.encode(pw),'PBKDF2',false,['deriveKey']);
+      const keyMat=await crypto.subtle.importKey(
+        'raw',enc.encode(pw),'PBKDF2',false,['deriveKey']
+      );
       return crypto.subtle.deriveKey(
         {name:'PBKDF2',salt,iterations:310000,hash:'SHA-256'},
-        km,{name:'AES-GCM',length:256},false,['encrypt','decrypt']
+        keyMat,{name:'AES-GCM',length:256},false,['encrypt','decrypt']
       );
     }
+
     async function encrypt(text,pw){
       const salt=crypto.getRandomValues(new Uint8Array(16));
       const iv=crypto.getRandomValues(new Uint8Array(12));
       const key=await deriveKey(pw,salt);
-      const c=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,te.encode(text));
-      return{enc:b64(c),iv:b64(iv),salt:b64(salt)};
+      const cipher=await crypto.subtle.encrypt(
+        {name:'AES-GCM',iv},key,enc.encode(text)
+      );
+      return{enc:b64(cipher),iv:b64(iv),salt:b64(salt)};
     }
 
-    // 短いランダムID
-    function genId(){
-      const ch='abcdefghijklmnopqrstuvwxyz0123456789';
-      const a=crypto.getRandomValues(new Uint8Array(8));
-      return Array.from(a).map(b=>ch[b%ch.length]).join('');
-    }
-
-    // パスワード強度
+    // ========== パスワード強度 ==========
     const pwBar=document.getElementById('pw-bar');
     const pwHint=document.getElementById('pw-hint');
     const pw2Hint=document.getElementById('pw2-hint');
-    const C=['#ef4444','#f97316','#eab308','#22c55e','#6366f1'];
-    const H=['とても弱い','弱い','普通','強い','とても強い'];
-    function str(pw){
-      let s=0;
-      if(pw.length>=8)s++;if(pw.length>=12)s++;
-      if(/[A-Z]/.test(pw))s++;if(/[0-9]/.test(pw))s++;if(/[^A-Za-z0-9]/.test(pw))s++;
-      return s;
+
+    function checkStrength(pw){
+      let score=0;
+      if(pw.length>=8)score++;
+      if(pw.length>=12)score++;
+      if(/[A-Z]/.test(pw))score++;
+      if(/[0-9]/.test(pw))score++;
+      if(/[^A-Za-z0-9]/.test(pw))score++;
+      return score;
     }
+
+    const colors=['#ef4444','#f97316','#eab308','#22c55e','#6366f1'];
+    const hints=['とても弱い','弱い','普通','強い','とても強い'];
+
     document.getElementById('pw').addEventListener('input',()=>{
       const v=document.getElementById('pw').value;
       if(!v){pwBar.style.width='0';pwHint.textContent='';validate();return}
-      const s=str(v);
+      const s=checkStrength(v);
       pwBar.style.width=((s/5)*100)+'%';
-      pwBar.style.background=C[s-1]||C[0];
-      pwHint.style.color=C[s-1]||C[0];
-      pwHint.textContent=H[s-1]||H[0];
+      pwBar.style.background=colors[s-1]||colors[0];
+      pwHint.style.color=colors[s-1]||colors[0];
+      pwHint.textContent=hints[s-1]||hints[0];
       validate();
     });
     document.getElementById('pw2').addEventListener('input',()=>{
       const p=document.getElementById('pw').value;
       const p2=document.getElementById('pw2').value;
-      if(p2&&p!==p2){pw2Hint.style.color='var(--danger)';pw2Hint.textContent='一致しないよ'}
-      else if(p2){pw2Hint.style.color='var(--success)';pw2Hint.textContent='✓ 一致'}
-      else pw2Hint.textContent='';
+      if(p2&&p!==p2){
+        pw2Hint.style.color='var(--danger)';
+        pw2Hint.textContent='一致しないよ';
+      }else if(p2){
+        pw2Hint.style.color='var(--success)';
+        pw2Hint.textContent='✓ 一致';
+      }else{
+        pw2Hint.textContent='';
+      }
       validate();
     });
     document.getElementById('body').addEventListener('input',validate);
-
-    // スラグ空き確認
-    const slugEl=document.getElementById('slug');
-    const slugIcon=document.getElementById('slug-icon');
-    const slugHint=document.getElementById('slug-hint');
-    let slugOk=true,slugTimer=null;
-
-    slugEl.addEventListener('input',()=>{
-      const v=slugEl.value.trim();
-      clearTimeout(slugTimer);
-      if(!v){
-        slugIcon.textContent='';
-        slugHint.style.color='var(--sub)';
-        slugHint.textContent='英数字・_・- のみ。空欄なら自動生成';
-        slugOk=true;validate();return;
-      }
-      if(!/^[a-zA-Z0-9_-]+$/.test(v)){
-        slugIcon.textContent='❌';
-        slugHint.style.color='var(--danger)';
-        slugHint.textContent='使える文字：英数字・_・-';
-        slugOk=false;validate();return;
-      }
-      slugIcon.textContent='⏳';
-      slugHint.style.color='var(--sub)';
-      slugHint.textContent='確認中...';
-      slugOk=false;validate();
-      slugTimer=setTimeout(async()=>{
-        const{data}=await sb.from('secret_letters').select('id').eq('slug',v).maybeSingle();
-        if(data){
-          slugIcon.textContent='❌';
-          slugHint.style.color='var(--danger)';
-          slugHint.textContent='このIDはもう使われてるよ';
-          slugOk=false;
-        }else{
-          slugIcon.textContent='✅';
-          slugHint.style.color='var(--success)';
-          slugHint.textContent='✓ 使えるよ！';
-          slugOk=true;
-        }
-        validate();
-      },600);
-    });
 
     function validate(){
       const body=document.getElementById('body').value.trim();
       const pw=document.getElementById('pw').value;
       const pw2=document.getElementById('pw2').value;
-      document.getElementById('send-btn').disabled=!body||!pw||pw!==pw2||!slugOk;
+      document.getElementById('send-btn').disabled=
+        !body||!pw||pw!==pw2||pw.length<1;
     }
 
+    // ========== パスワード表示切替 ==========
     document.getElementById('eye1').addEventListener('click',()=>{
-      const i=document.getElementById('pw');i.type=i.type==='password'?'text':'password';
+      const i=document.getElementById('pw');
+      i.type=i.type==='password'?'text':'password';
     });
     document.getElementById('eye2').addEventListener('click',()=>{
-      const i=document.getElementById('pw2');i.type=i.type==='password'?'text':'password';
+      const i=document.getElementById('pw2');
+      i.type=i.type==='password'?'text':'password';
     });
 
-    // 送信
+    // ========== 送信 ==========
     document.getElementById('send-btn').addEventListener('click',async()=>{
       const body=document.getElementById('body').value.trim();
       const title=document.getElementById('title').value.trim()||'(件名なし)';
       const pw=document.getElementById('pw').value;
       const expireH=parseInt(document.getElementById('expire').value);
-      const slugVal=slugEl.value.trim()||genId();
       const btn=document.getElementById('send-btn');
-      btn.disabled=true;btn.textContent='暗号化中...';
+
+      btn.disabled=true;
+      btn.textContent='暗号化中...';
 
       try{
-        const[bE,tE]=await Promise.all([encrypt(body,pw),encrypt(title,pw)]);
-        const expires=expireH>0?new Date(Date.now()+expireH*3600*1000).toISOString():null;
+        const bodyEnc=await encrypt(body,pw);
+        const titleEnc=await encrypt(title,pw);
 
-        const{error}=await sb.from('secret_letters').insert({
-          slug:slugVal,
-          body_enc:bE.enc,body_iv:bE.iv,body_salt:bE.salt,
-          title_enc:tE.enc,title_iv:tE.iv,title_salt:tE.salt,
-          expires_at:expires
-        });
+        const expires=expireH>0
+          ?new Date(Date.now()+expireH*3600*1000).toISOString()
+          :null;
+
+        const{data,error}=await sb
+          .from('secret_letters')
+          .insert({
+            body_enc:bodyEnc.enc,
+            body_iv:bodyEnc.iv,
+            body_salt:bodyEnc.salt,
+            title_enc:titleEnc.enc,
+            title_iv:titleEnc.iv,
+            title_salt:titleEnc.salt,
+            expires_at:expires
+          })
+          .select('id')
+          .single();
+
         if(error)throw error;
 
-        const url=`${location.origin}/sites.google.com/read.html?id=${encodeURIComponent(slugVal)}#youtube.com`;
-        document.getElementById('r-slug').textContent=slugVal;
-        document.getElementById('r-pw').textContent=pw;
+        const url=`${location.origin}/sites.google.com/read.html?id=${data.id}#youtube.com`;
         document.getElementById('result-url').textContent=url;
         document.getElementById('overlay').classList.add('show');
 
-        const showCopied=msg=>{
-          document.getElementById('copied-msg').textContent='✓ '+msg;
-          setTimeout(()=>document.getElementById('copied-msg').textContent='',2000);
+        document.getElementById('copy-btn').onclick=()=>{
+          navigator.clipboard.writeText(url).then(()=>{
+            document.getElementById('copied-msg').textContent='✓ コピーしました';
+            setTimeout(()=>document.getElementById('copied-msg').textContent='',2000);
+          });
         };
-        document.getElementById('copy-slug-btn').onclick=()=>
-          navigator.clipboard.writeText(slugVal).then(()=>showCopied('IDをコピー'));
-        document.getElementById('copy-pw-btn').onclick=()=>
-          navigator.clipboard.writeText(pw).then(()=>showCopied('パスワードをコピー'));
-        document.getElementById('copy-url-btn').onclick=()=>
-          navigator.clipboard.writeText(url).then(()=>showCopied('URLをコピー'));
-        document.getElementById('copy-all-btn').onclick=()=>
-          navigator.clipboard.writeText(`ID: ${slugVal}\nパスワード: ${pw}\nURL: ${url}`)
-            .then(()=>showCopied('全部コピー'));
         document.getElementById('new-btn').onclick=()=>{
           document.getElementById('overlay').classList.remove('show');
-          ['body','title','pw','pw2'].forEach(id=>document.getElementById(id).value='');
-          slugEl.value='';slugIcon.textContent='';
-          slugHint.style.color='var(--sub)';
-          slugHint.textContent='英数字・_・- のみ。空欄なら自動生成';
-          pwBar.style.width='0';pwHint.textContent='';pw2Hint.textContent='';
-          slugOk=true;btn.textContent='🔒 暗号化して送信';validate();
+          document.getElementById('body').value='';
+          document.getElementById('title').value='';
+          document.getElementById('pw').value='';
+          document.getElementById('pw2').value='';
+          pwBar.style.width='0';
+          pwHint.textContent='';
+          pw2Hint.textContent='';
+          btn.textContent='🔒 暗号化して送信';
+          validate();
         };
+
       }catch(e){
         alert('送信失敗: '+e.message);
-        btn.disabled=false;btn.textContent='🔒 暗号化して送信';
+        btn.disabled=false;
+        btn.textContent='🔒 暗号化して送信';
       }
     });
   </script>
