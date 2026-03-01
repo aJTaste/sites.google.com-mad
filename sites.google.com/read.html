@@ -264,13 +264,13 @@
       document.getElementById('loading').classList.add('show');
 
       try{
-        // slugで検索→なければUUIDで検索
-        let data=null;
-        const{data:d1}=await sb.from('secret_letters').select('*').eq('slug',id).maybeSingle();
-        if(d1){data=d1}
-        else{const{data:d2}=await sb.from('secret_letters').select('*').eq('id',id).maybeSingle();data=d2}
+        const{data,error}=await sb
+          .from('secret_letters')
+          .select('*')
+          .eq('id',id)
+          .single();
 
-        if(!data){
+        if(error||!data){
           document.getElementById('form-card').style.display='block';
           document.getElementById('loading').classList.remove('show');
           showErr('手紙が見つからないよ。IDを確認してね');
